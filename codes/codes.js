@@ -4,12 +4,13 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const state = { key: null, presets: [], byId: new Map(), kind: 'cubes', chosen: 2, last: '' };
   const STORE = 'ubforge-codes';
+  const HIDDEN = new Set([102]); // not offered in the generator; still recognised by Check a code
   const today = () => new Date().toISOString().slice(0, 10);
 
   const kindOf = p => { const r = p.rewards; return r.length === 1 && r[0].type === 5 ? 'char' : r.length === 1 && r[0].type === 3 ? 'cubes' : 'other'; };
   function renderRewards() {
     const term = $('#find').value.trim().toLowerCase();
-    const rows = state.presets.filter(p => kindOf(p) === state.kind && (!term || `${p.label} ${p.rewards[0].id} ${p.presetId}`.toLowerCase().includes(term)))
+    const rows = state.presets.filter(p => !HIDDEN.has(p.presetId) && kindOf(p) === state.kind && (!term || `${p.label} ${p.rewards[0].id} ${p.presetId}`.toLowerCase().includes(term)))
       .sort((a, b) => state.kind === 'cubes' ? a.rewards[0].amount - b.rewards[0].amount : a.label.localeCompare(b.label));
     $('#rewards').innerHTML = rows.length ? rows.map(p => `<label><input type="radio" name="reward" value="${p.presetId}" ${state.chosen === p.presetId ? 'checked' : ''}>
       <span>${esc(p.label)}</span>${state.kind === 'char' ? `<span class="id">${p.rewards[0].id}</span>` : ''}</label>`).join('')
