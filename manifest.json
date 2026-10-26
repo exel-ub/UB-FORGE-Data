@@ -1,19 +1,34 @@
 {
   "format": 1,
-  "latest": "data-v1",
+  "latest": "Data-V1",
   "packs": [
     {
-      "tag": "data-v1",
-      "baseUrl": "https://github.com/exel-ub/UB-FORGE-Data/releases/download/data-v1/",
-      "archive": "7z-split",
+      "tag": "Data-V1",
+      "baseUrl": "https://github.com/exel-ub/UB-FORGE-Data/releases/download/Data-V1/",
+      "archive": "zip-split",
+      "archiveName": "SAOUB-FORGE-game-data-v1.zip",
+      "archiveBytes": 4548340390,
+      "archiveSha256": "b80ee511c8adbe6def76f682ac8e877aa95c8a969500089ad079cc5052c626f3",
+      "partsList": "game-data-parts.json",
+      "checksums": "SHA256SUMS.txt",
       "minAppVersion": "0.0.0",
       "parts": [
-        { "name": "ubforge-data.7z.001", "size": 0, "sha256": "" },
-        { "name": "ubforge-data.7z.002", "size": 0, "sha256": "" },
-        { "name": "ubforge-data.7z.003", "size": 0, "sha256": "" }
-      ],
-      "checksums": "SHA256SUMS.txt",
-      "notes": "Fill size and sha256 for every part from the files you actually upload. The part count can change; list exactly the uploaded parts."
+        {
+          "name": "SAOUB-FORGE-game-data-v1.zip.001",
+          "size": 1600000000,
+          "sha256": "606c6c358724d8a6ba2d329a22b01c6e9a35936acffa5f6fd208b3181b9b2a35"
+        },
+        {
+          "name": "SAOUB-FORGE-game-data-v1.zip.002",
+          "size": 1600000000,
+          "sha256": "c47f911952e50a55ee9ca8a7a4eb6b92c84d958f0f7df479035ae054badea538"
+        },
+        {
+          "name": "SAOUB-FORGE-game-data-v1.zip.003",
+          "size": 1348340390,
+          "sha256": "cf4903c826aab5bd03bb0291c11256a63082d5819d380ef9e657e2ad6376bf65"
+        }
+      ]
     }
   ]
 }
