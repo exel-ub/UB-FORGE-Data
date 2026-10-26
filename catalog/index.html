@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Purchase Catalog · UB:FORGE</title>
+<link rel="icon" href="../assets/mark-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Oxanium:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.head{padding-top:36px;padding-bottom:20px}
+.head h1{font-size:clamp(30px,5vw,44px)}
+.head p{margin:8px 0 0;max-width:66ch}
+@media (min-width:700px){.tools{position:sticky;top:0;z-index:5}}
+.tools{background:rgba(23,27,33,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:12px 0}
+.tools .wrap{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+#q{flex:1 1 260px}
+.count{padding:14px 0 6px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding-bottom:20px}
+.item{background:var(--plate);border:1px solid var(--rule);border-radius:var(--r-m);overflow:hidden;cursor:pointer;text-align:left;padding:0;display:flex;flex-direction:column}
+.item:hover{border-color:var(--steel)}
+.pic{aspect-ratio:680/240;background:#1a1f26 center/contain no-repeat;display:grid;place-items:center;border-bottom:1px solid var(--rule)}
+.pic img{width:100%;height:100%;object-fit:contain}
+.pic.icon img{width:auto;height:84%}
+.pic .none{font-size:13px;color:var(--steel)}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.body h3{font:600 17px/1.25 var(--body)}
+.body .desc{font-size:15px;color:var(--steel);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{margin-top:auto;padding-top:8px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;color:var(--steel)}
+.tag{border:1px solid var(--rule);border-radius:4px;padding:1px 7px}
+.tag.qa{border-color:#6b5a3a;color:#d9b77b}
+.ph{font-family:var(--display);font-size:.9em;color:var(--ember);padding:0 2px}
+.more{display:flex;justify-content:center;padding:6px 0 60px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;padding-bottom:60px}
+.gallery a{display:block;background:var(--plate);border:1px solid var(--rule);border-radius:var(--r-s);overflow:hidden;text-decoration:none}
+.gallery img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#1a1f26}
+.gallery span{display:block;padding:6px 8px;font-size:12px;color:var(--steel);overflow-wrap:anywhere}
+.empty{padding:60px 0;text-align:center;color:var(--steel)}
+.detail .dimg{background:#1a1f26;border-bottom:1px solid var(--rule);display:grid;place-items:center;max-height:300px}
+.detail .dimg img{max-height:300px;object-fit:contain}
+.detail .dbody{padding:18px 20px 20px}
+.detail h2{font-size:24px}
+.detail dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:16px 0 0;font-size:15px}
+.detail dt{color:var(--steel)}
+.detail dd{margin:0;overflow-wrap:anywhere;white-space:pre-wrap}
+.detail .x{position:absolute;top:10px;right:10px}
+.detail{position:relative}
+.ja{font-size:15px;color:var(--steel);white-space:pre-wrap;margin:6px 0 0}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap"><a class="brand" href="../"><img src="../assets/mark.svg" alt="">UB:FORGE</a>
+<nav><a href="./" aria-current="page">Catalog</a><a href="../owner/">Owner tools</a></nav></div></header>
+<main>
+  <div class="wrap head">
+    <h1>Purchase catalog</h1>
+    <p class="muted">Every in-app product recovered from the original game's data. Store prices weren't recovered, and quantities the game filled in at runtime are shown as <span class="ph">?</span>. For reference only: none of these are sold.</p>
+  </div>
+  <div class="tools"><div class="wrap">
+    <div class="seg" role="group" aria-label="View">
+      <button data-view="products" aria-pressed="true">Products<span class="n" id="n-products"></span></button>
+      <button data-view="season" aria-pressed="false">Season Pass<span class="n" id="n-season"></span></button>
+      <button data-view="images" aria-pressed="false">Pictures<span class="n" id="n-images"></span></button>
+    </div>
+    <input id="q" class="field" type="search" placeholder="Search name, Japanese name, SKU or ID" aria-label="Search">
+    <span id="filters" style="display:contents">
+      <select id="region" class="field" aria-label="Store region">
+        <option value="">All regions</option><option value="-">Japan / unmarked</option><option value="US">US</option><option value="EU">EU</option><option value="AP">Asia</option>
+      </select>
+      <label class="check"><input type="checkbox" id="pics" checked> With pictures only</label>
+      <label class="check"><input type="checkbox" id="qa"> Include test versions</label>
+    </span>
+  </div></div>
+  <div class="wrap">
+    <p class="count muted" id="count" aria-live="polite">Loading the catalog…</p>
+    <div id="out"></div>
+    <div class="more"><button class="btn" id="more" hidden>Show more</button></div>
+  </div>
+</main>
+<dialog id="dlg" class="detail" aria-label="Product details"></dialog>
+<script src="catalog.js"></script>
+</body>
+</html>
