@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "latest": "data-v1",
+  "packs": [
+    {
+      "tag": "data-v1",
+      "baseUrl": "https://github.com/exel-ub/UB-FORGE-Data/releases/download/data-v1/",
+      "archive": "7z-split",
+      "minAppVersion": "0.0.0",
+      "parts": [
+        { "name": "ubforge-data.7z.001", "size": 0, "sha256": "" },
+        { "name": "ubforge-data.7z.002", "size": 0, "sha256": "" },
+        { "name": "ubforge-data.7z.003", "size": 0, "sha256": "" }
+      ],
+      "checksums": "SHA256SUMS.txt",
+      "notes": "Fill size and sha256 for every part from the files you actually upload. The part count can change; list exactly the uploaded parts."
+    }
+  ]
+}

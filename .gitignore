@@ -1,0 +1,10 @@
+# Data archives go in Releases, never in git
+*.7z
+*.7z.*
+*.zip
+*.z[0-9][0-9]
+*.rar
+*.bundle
+*.obb
+*.apk
+SHA256SUMS.txt
