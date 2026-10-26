@@ -6,16 +6,15 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
 <title>UB:FORGE Tools</title>
-<link rel="icon" href="assets/mark-64.png">
+<link rel="icon" href="assets/icon-64.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Oxanium:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <style>
-.hero{padding:72px 0 40px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
-.hero img{width:120px;height:120px;filter:drop-shadow(0 10px 30px rgba(232,137,44,.18))}
+.hero{padding:72px 0 48px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.hero img{width:120px;height:120px;border-radius:22px;box-shadow:0 10px 30px rgba(120,90,200,.25)}
 .hero h1{font-size:clamp(44px,8vw,88px);font-weight:700;letter-spacing:-.01em;line-height:.95}
 .hero h1 span{display:block;font-size:.42em;font-weight:500;color:var(--steel);letter-spacing:.04em;margin-top:10px}
-.lede{max-width:56ch;margin:0 0 48px;color:var(--steel)}
 .tools{border-top:1px solid var(--rule)}
 .tool{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:center;padding:32px 0;border-bottom:1px solid var(--rule);text-decoration:none}
 .tool h2{font-size:30px;margin-bottom:8px}
@@ -24,29 +23,27 @@
 .strip{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
 .strip img{width:100%;aspect-ratio:680/240;object-fit:cover;border-radius:4px;background:var(--plate)}
 .owner{grid-template-columns:1fr auto}
-.owner h2{font-size:22px}
 .lock{font:600 15px var(--display);color:var(--steel);border:1px solid var(--rule);border-radius:var(--r-s);padding:8px 14px}
 footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
 @media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:40px}.hero img{width:76px;height:76px}.tool{grid-template-columns:1fr}.owner .lock{justify-self:start}}
 </style>
 </head>
 <body>
-<header class="bar"><div class="wrap"><a class="brand" href="./"><img src="assets/mark.svg" alt="">UB:FORGE</a>
-<nav><a href="catalog/">Catalog</a><a href="owner/">Owner tools</a></nav></div></header>
+<header class="bar"><div class="wrap"><a class="brand" href="./"><img src="assets/icon-64.png" alt="">UB:FORGE</a>
+<nav><a href="catalog/">Catalog</a><a href="codes/">Codes</a></nav></div></header>
 <main class="wrap">
   <section class="hero">
-    <img src="assets/mark.svg" alt="">
+    <img src="assets/icon-256.png" alt="">
     <h1>UB:FORGE<span>Tools</span></h1>
   </section>
-  <p class="lede">Reference pages for the UB:FORGE revival. Everything here runs in your browser and nothing you type is sent anywhere.</p>
   <div class="tools">
     <a class="tool" href="catalog/">
       <div><h2>Purchase catalog</h2><p>Every recovered in-app product from the original game, with its artwork, original Japanese text, SKU and ID. Search it or browse the 206 recovered pictures.</p></div>
       <div class="strip" aria-hidden="true" id="strip"></div>
     </a>
-    <a class="tool owner" href="owner/">
-      <div><h2>Owner tools</h2><p>Gift-code generator for the project owner. Needs the private key file from your Code Generator folder.</p></div>
-      <span class="lock">Key required</span>
+    <a class="tool owner" href="codes/">
+      <div><h2>Code generator</h2><p>Make gift codes for Cubes, characters and more, check whether a code works, and find every code the Forge has released.</p></div>
+      <span class="lock">Open</span>
     </a>
   </div>
 </main>

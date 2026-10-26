@@ -20,7 +20,7 @@ img{max-width:100%}
 .bar{border-bottom:1px solid var(--rule);background:linear-gradient(#1d2229,var(--ink))}
 .bar .wrap{display:flex;align-items:center;gap:14px;min-height:60px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 19px/1 var(--display);letter-spacing:.02em;color:var(--bright)}
-.brand img{width:28px;height:28px}
+.brand img{width:30px;height:30px;border-radius:7px}
 .bar nav{margin-left:auto;display:flex;gap:18px;font-size:15px}
 .bar nav a{text-decoration:none;color:var(--steel)}
 .bar nav a[aria-current]{color:var(--bright);box-shadow:inset 0 -2px var(--ember)}
