@@ -5,24 +5,27 @@
   const state = { key: null, presets: [], byId: new Map(), kind: 'cubes', chosen: 2, last: '' };
   const STORE = 'ubforge-codes';
   const HIDDEN = new Set([102]); // not offered in the generator; still recognised by Check a code
+  const isHidden = p => HIDDEN.has(p.presetId) || (p.presetId >= 2960 && p.presetId <= 2987); // profile trackers
   const today = () => new Date().toISOString().slice(0, 10);
 
   const isSong = p => p.presetId >= 2300 && p.presetId < 2400;
   const songKind = p => p.presetId <= 2311 ? 'Home music' : 'Battle music';
-  const kindOf = p => { const r = p.rewards; return isSong(p) ? 'song' : p.presetId >= 2000 && p.presetId < 2200 ? 'pack' : r.length === 1 && r[0].type === 5 ? 'char' : r.length === 1 && r[0].type === 3 ? 'cubes' : 'other'; };
+  const between = (p, a, b) => p.presetId >= a && p.presetId <= b;
+  const themeKind = p => p.rewards[0].id >= 409990000 ? 'Wallpaper' : 'Home theme';
+  const kindOf = p => { const r = p.rewards; return isSong(p) ? 'song' : between(p, 2400, 2599) || between(p, 3100, 3199) ? 'mat' : between(p, 2600, 2808) ? 'outfit' : between(p, 2809, 2959) ? 'bg' : between(p, 2988, 3099) ? 'theme' : p.presetId >= 2000 && p.presetId < 2200 ? 'pack' : r.length === 1 && r[0].type === 5 ? 'char' : r.length === 1 && r[0].type === 3 ? 'cubes' : 'other'; };
   const contents = p => p.rewards.map(r => `${(window.ITEM_NAMES || {})[r.id] || 'Item ' + r.id} ×${r.amount.toLocaleString()}`).join(', ');
   function renderRewards() {
     const term = $('#find').value.trim().toLowerCase();
-    const rows = state.presets.filter(p => !HIDDEN.has(p.presetId) && kindOf(p) === state.kind && (!term || `${p.label} ${p.rewards[0].id} ${p.presetId}`.toLowerCase().includes(term)))
-      .sort((a, b) => state.kind === 'cubes' ? a.rewards[0].amount - b.rewards[0].amount : state.kind === 'song' ? a.presetId - b.presetId : a.label.localeCompare(b.label));
+    const rows = state.presets.filter(p => !isHidden(p) && kindOf(p) === state.kind && (!term || `${p.label} ${p.rewards[0].id} ${p.presetId}`.toLowerCase().includes(term)))
+      .sort((a, b) => state.kind === 'cubes' ? a.rewards[0].amount - b.rewards[0].amount : state.kind === 'song' || state.kind === 'mat' || state.kind === 'bg' ? a.presetId - b.presetId : a.label.localeCompare(b.label));
     $('#rewards').innerHTML = rows.length ? rows.map(p => `<label><input type="radio" name="reward" value="${p.presetId}" ${state.chosen === p.presetId ? 'checked' : ''}>
-      <span>${esc(p.label)}</span>${state.kind === 'char' ? `<span class="id">${p.rewards[0].id}</span>` : state.kind === 'song' ? `<span class="id">${songKind(p)}</span>` : ''}</label>`).join('')
+      <span>${esc(p.label)}</span>${state.kind === 'char' ? `<span class="id">${p.rewards[0].id}</span>` : state.kind === 'song' ? `<span class="id">${songKind(p)}</span>` : state.kind === 'theme' ? `<span class="id">${themeKind(p)}</span>` : ''}</label>`).join('')
       : '<p class="muted" style="padding:12px;margin:0">No rewards match that search.</p>';
   }
   function describe() {
     const p = state.byId.get(state.chosen);
     $('#chosen').textContent = p ? p.label : 'Choose a reward';
-    $('#chosenInfo').textContent = p ? isSong(p) ? `${songKind(p)} for the customization menu. Unlocks this song.` : (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : (kindOf(p) === 'pack' || p.presetId >= 2200) ? `Contains ${contents(p)}. Arrives in the Gift Box.` : 'Arrives in the Gift Box.') : '';
+    $('#chosenInfo').textContent = p ? isSong(p) ? `${songKind(p)} for the customization menu. Unlocks this song.` : (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : (kindOf(p) === 'pack' || between(p, 2200, 2299)) ? `Contains ${contents(p)}. Arrives in the Gift Box.` : kindOf(p) === 'outfit' ? 'Home character outfit. Unlocks it for your home screen.' : kindOf(p) === 'bg' ? 'Home background. Unlocks it for your home screen.' : kindOf(p) === 'theme' ? `${themeKind(p)} for the customization menu. Unlocks it.` : 'Arrives in the Gift Box.') : '';
     $('#go').disabled = !(p && state.key);
   }
   $('#rewards').addEventListener('change', e => { state.chosen = +e.target.value; describe(); });
