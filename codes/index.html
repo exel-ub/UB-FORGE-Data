@@ -20,7 +20,11 @@
 .panel{background:var(--plate);border:1px solid var(--rule);border-radius:var(--r-m);padding:18px}
 .panel h2{font-size:20px;margin-bottom:12px}
 .pick .top{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-.pick .top input{flex:1 1 180px}
+.pick .top input{flex:1 1 100%}
+.pick .seg{display:flex;flex-wrap:wrap;gap:6px;border:0;border-radius:0;overflow:visible;width:100%}
+.pick .seg button{flex:1 1 auto;border:1px solid var(--rule);border-radius:var(--r-s);padding:7px 12px;text-align:center}
+.pick .seg button+button{border-left:1px solid var(--rule)}
+.pick .seg button[aria-pressed="true"]{border-color:var(--ember);box-shadow:none}
 .list{max-height:430px;overflow:auto;border:1px solid var(--rule);border-radius:var(--r-s);background:var(--ink)}
 .list label{display:flex;gap:10px;align-items:baseline;padding:9px 12px;border-bottom:1px solid #262d36;cursor:pointer}
 .list label:last-child{border-bottom:0}
