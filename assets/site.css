@@ -50,3 +50,4 @@ dialog::backdrop{background:rgba(8,10,13,.75)}
 @media (prefers-reduced-motion:no-preference){dialog[open]{animation:rise .18s ease-out}@keyframes rise{from{transform:translateY(8px);opacity:.4}}}
 .bar nav a{white-space:nowrap}
 @media (max-width:480px){.brand{font-size:17px}.bar nav{gap:14px}}
+@media (max-width:480px){.seg button{padding:8px 10px}}

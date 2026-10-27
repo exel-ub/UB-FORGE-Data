@@ -7,7 +7,8 @@
   const HIDDEN = new Set([102]); // not offered in the generator; still recognised by Check a code
   const today = () => new Date().toISOString().slice(0, 10);
 
-  const kindOf = p => { const r = p.rewards; return r.length === 1 && r[0].type === 5 ? 'char' : r.length === 1 && r[0].type === 3 ? 'cubes' : 'other'; };
+  const kindOf = p => { const r = p.rewards; return p.presetId >= 2000 && p.presetId < 2200 ? 'pack' : r.length === 1 && r[0].type === 5 ? 'char' : r.length === 1 && r[0].type === 3 ? 'cubes' : 'other'; };
+  const contents = p => p.rewards.map(r => `${(window.ITEM_NAMES || {})[r.id] || 'Item ' + r.id} ×${r.amount.toLocaleString()}`).join(', ');
   function renderRewards() {
     const term = $('#find').value.trim().toLowerCase();
     const rows = state.presets.filter(p => !HIDDEN.has(p.presetId) && kindOf(p) === state.kind && (!term || `${p.label} ${p.rewards[0].id} ${p.presetId}`.toLowerCase().includes(term)))
@@ -19,7 +20,7 @@
   function describe() {
     const p = state.byId.get(state.chosen);
     $('#chosen').textContent = p ? p.label : 'Choose a reward';
-    $('#chosenInfo').textContent = p ? (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : 'Arrives in the Gift Box.') : '';
+    $('#chosenInfo').textContent = p ? (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : (kindOf(p) === 'pack' || p.presetId >= 2200) ? `Contains ${contents(p)}. Arrives in the Gift Box.` : 'Arrives in the Gift Box.') : '';
     $('#go').disabled = !(p && state.key);
   }
   $('#rewards').addEventListener('change', e => { state.chosen = +e.target.value; describe(); });
