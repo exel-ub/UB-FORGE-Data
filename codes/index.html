@@ -31,6 +31,9 @@
 .list input{accent-color:var(--ember)}
 .list .id{margin-left:auto;font-size:13px;color:var(--steel);white-space:nowrap}
 .list label:has(input:checked){background:var(--plate-2)}
+.pic{margin:0 0 12px;border:1px solid var(--rule);border-radius:var(--r-m);background:#1a1f26;display:grid;place-items:center;overflow:hidden}
+.pic img{display:block;width:100%;max-height:200px;object-fit:contain}
+.pic.icon img{width:auto;height:120px;padding:8px}
 .chosen{font:600 22px/1.25 var(--display);margin:0 0 4px}
 .opts{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:16px 0}
 .opts label{display:inline-flex;gap:8px;align-items:center}
@@ -91,6 +94,7 @@ td .btn{padding:4px 10px;font-size:14px}
 
     <section class="panel">
       <h2>Generate</h2>
+      <div class="pic" id="pic" hidden><img id="picImg" alt=""></div>
       <p class="chosen" id="chosen">Choose a reward</p>
       <p class="muted small" id="chosenInfo" style="margin:0"></p>
       <div class="opts">
@@ -134,6 +138,7 @@ td .btn{padding:4px 10px;font-size:14px}
 <script src="key.js"></script>
 <script src="released.js"></script>
 <script src="item-names.js"></script>
+<script src="item-images.js"></script>
 <script src="forgecode.js"></script>
 <script src="codes.js"></script>
 </body>

@@ -24,6 +24,9 @@
   }
   function describe() {
     const p = state.byId.get(state.chosen);
+    const img = p && (window.PRESET_IMAGES || {})[p.presetId];
+    $('#pic').hidden = !img;
+    if (img) { $('#picImg').src = '../catalog/images/' + img; $('#pic').classList.toggle('icon', kindOf(p) === 'cubes'); }
     $('#chosen').textContent = p ? p.label : 'Choose a reward';
     $('#chosenInfo').textContent = p ? isSong(p) ? `${songKind(p)} for the customization menu. Unlocks this song.` : (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : (kindOf(p) === 'pack' || between(p, 2200, 2299)) ? `Contains ${contents(p)}. Arrives in the Gift Box.` : kindOf(p) === 'outfit' ? 'Home character outfit. Unlocks it for your home screen.' : kindOf(p) === 'bg' ? 'Home background. Unlocks it for your home screen.' : kindOf(p) === 'theme' ? `${themeKind(p)} for the customization menu. Unlocks it.` : 'Arrives in the Gift Box.') : '';
     $('#go').disabled = !(p && state.key);
