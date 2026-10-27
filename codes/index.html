@@ -15,7 +15,8 @@
 .head h1{font-size:clamp(30px,5vw,44px)}
 .head p{margin:8px 0 0;max-width:66ch}
 .work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
-@media (max-width:900px){.work{grid-template-columns:1fr}}
+@media (max-width:900px){.work{grid-template-columns:minmax(0,1fr)}}
+.panel{min-width:0}
 .panel{background:var(--plate);border:1px solid var(--rule);border-radius:var(--r-m);padding:18px}
 .panel h2{font-size:20px;margin-bottom:12px}
 .pick .top{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
@@ -51,6 +52,7 @@ td.code{font-family:var(--display);letter-spacing:.04em}
 td.reward{white-space:normal;min-width:180px}
 td .btn{padding:4px 10px;font-size:14px}
 .last{margin-bottom:60px}
+@media (max-width:480px){.plate pre{font-size:15px;letter-spacing:.02em}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -71,6 +73,7 @@ td .btn{padding:4px 10px;font-size:14px}
           <button data-kind="cubes" aria-pressed="true">Cubes</button>
           <button data-kind="char" aria-pressed="false">Characters</button>
           <button data-kind="pack" aria-pressed="false">Packs</button>
+          <button data-kind="song" aria-pressed="false">Songs</button>
           <button data-kind="other" aria-pressed="false">Other</button>
         </div>
         <input class="field" type="search" id="find" placeholder="Search name or ID" aria-label="Search rewards">
