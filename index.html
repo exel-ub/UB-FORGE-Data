@@ -23,6 +23,8 @@
 .strip{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
 .strip img{width:100%;aspect-ratio:680/240;object-fit:cover;border-radius:4px;background:var(--plate)}
 .owner{grid-template-columns:1fr auto}
+.strip.chars{grid-template-columns:repeat(4,1fr)}
+.strip.chars img{aspect-ratio:1/1}
 .lock{font:600 15px var(--display);color:var(--steel);border:1px solid var(--rule);border-radius:var(--r-s);padding:8px 14px}
 footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
 @media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:40px}.hero img{width:76px;height:76px}.tool{grid-template-columns:1fr}.owner .lock{justify-self:start}}
@@ -30,7 +32,7 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
 </head>
 <body>
 <header class="bar"><div class="wrap"><a class="brand" href="./"><img src="assets/icon-64.png" alt="">UB:FORGE</a>
-<nav><a href="catalog/">Catalog</a><a href="calendar/">Calendar</a><a href="codes/">Codes</a></nav></div></header>
+<nav><a href="catalog/">Catalog</a><a href="calendar/">Calendar</a><a href="characters/">Characters</a><a href="codes/">Codes</a></nav></div></header>
 <main class="wrap">
   <section class="hero">
     <img src="assets/icon-256.png" alt="">
@@ -44,6 +46,10 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
     <a class="tool" href="calendar/">
       <div><h2>Calendar</h2><p>Every scout, event, War of Underworld volume and holiday, week by week, with real dates for your save's pace and start day.</p></div>
       <div class="strip" aria-hidden="true" id="calstrip"></div>
+    </a>
+    <a class="tool" href="characters/">
+      <div><h2>Characters</h2><p>All 251 playable characters with their element, weapon, full art, story and the week they first show up in scouts.</p></div>
+      <div class="strip chars" aria-hidden="true" id="charstrip"></div>
     </a>
     <a class="tool owner" href="codes/">
       <div><h2>Code generator</h2><p>Make gift codes for Cubes, characters and more, check whether a code works, and find every code the Forge has released.</p></div>
@@ -60,6 +66,10 @@ fetch('catalog/catalog-data.json').then(r=>r.json()).then(d=>{
 fetch('calendar/calendar-data.json').then(r=>r.json()).then(d=>{
   const s=document.getElementById('calstrip');
   [d.banners.find(b=>b.id===171106701),d.events.find(e=>e.id===601101000149)||d.events[40],d.banners.find(b=>b.id===171116901),d.events[5]].forEach(x=>{if(!x||!x.art)return;const im=new Image();im.src='calendar/art/'+x.art+'.webp';im.alt='';im.loading='lazy';s.append(im)});
+}).catch(()=>{});
+fetch('characters/characters-data.json').then(r=>r.json()).then(d=>{
+  const s=document.getElementById('charstrip');
+  ['kirito_cathedral','asuna_stacia','alice_integrator','eugeo_cathedral','yuuki_halloween','sinon_solus','edith_integrator','administrator_cathedral'].forEach(k=>{const c=d.characters.find(x=>x.key===k);if(!c)return;const im=new Image();im.src='characters/art/'+c.icon+'.webp';im.alt='';im.loading='lazy';s.append(im)});
 }).catch(()=>{});
 </script>
 </body>

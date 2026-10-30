@@ -158,7 +158,8 @@
   document.querySelectorAll('[data-show]').forEach(c => { c.checked = !!state.show[c.dataset.show]; });
   fetch('calendar-data.json').then(r => r.json()).then(d => {
     D = d; render();
-    const day = nowDay();
-    if (day > 0 && day < runEnd()) { const el = document.getElementById('w' + weekOfDay(day)); if (el) el.scrollIntoView({ block: 'start' }); }
+    const m = /^#w(\d+)$/.exec(location.hash), day = nowDay();
+    const target = m ? document.getElementById('w' + m[1]) : (day > 0 && day < runEnd() ? document.getElementById('w' + weekOfDay(day)) : null);
+    if (target) target.scrollIntoView({ block: 'start' });
   }).catch(() => { $('#weeks').innerHTML = '<p class="empty">The calendar didn\'t load. Refresh the page.</p>'; });
 })();
