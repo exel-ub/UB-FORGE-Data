@@ -30,7 +30,7 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
 </head>
 <body>
 <header class="bar"><div class="wrap"><a class="brand" href="./"><img src="assets/icon-64.png" alt="">UB:FORGE</a>
-<nav><a href="catalog/">Catalog</a><a href="codes/">Codes</a></nav></div></header>
+<nav><a href="catalog/">Catalog</a><a href="calendar/">Calendar</a><a href="codes/">Codes</a></nav></div></header>
 <main class="wrap">
   <section class="hero">
     <img src="assets/icon-256.png" alt="">
@@ -40,6 +40,10 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
     <a class="tool" href="catalog/">
       <div><h2>Purchase catalog</h2><p>Every recovered in-app product from the original game, with its artwork, original Japanese text, SKU and ID. Search it or browse the 206 recovered pictures.</p></div>
       <div class="strip" aria-hidden="true" id="strip"></div>
+    </a>
+    <a class="tool" href="calendar/">
+      <div><h2>Calendar</h2><p>Every scout, event, War of Underworld volume and holiday, week by week, with real dates for your save's pace and start day.</p></div>
+      <div class="strip" aria-hidden="true" id="calstrip"></div>
     </a>
     <a class="tool owner" href="codes/">
       <div><h2>Code generator</h2><p>Make gift codes for Cubes, characters and more, check whether a code works, and find every code the Forge has released.</p></div>
@@ -52,6 +56,10 @@ footer{padding:40px 0 60px;font-size:14px;color:var(--steel)}
 fetch('catalog/catalog-data.json').then(r=>r.json()).then(d=>{
   const picks=d.products.filter(p=>p.shape==='banner'&&!p.qa);const s=document.getElementById('strip');
   [3,40,120,260].forEach(i=>{const p=picks[i%picks.length];if(!p)return;const im=new Image();im.src='catalog/images/'+p.img;im.alt='';im.loading='lazy';s.append(im)});
+}).catch(()=>{});
+fetch('calendar/calendar-data.json').then(r=>r.json()).then(d=>{
+  const s=document.getElementById('calstrip');
+  [d.banners.find(b=>b.id===171106701),d.events.find(e=>e.id===601101000149)||d.events[40],d.banners.find(b=>b.id===171116901),d.events[5]].forEach(x=>{if(!x||!x.art)return;const im=new Image();im.src='calendar/art/'+x.art+'.webp';im.alt='';im.loading='lazy';s.append(im)});
 }).catch(()=>{});
 </script>
 </body>

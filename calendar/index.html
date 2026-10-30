@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; form-action 'none'; base-uri 'none'">
+<title>Calendar · UB:FORGE</title>
+<link rel="icon" href="../assets/icon-64.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Oxanium:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.head{padding-top:36px;padding-bottom:18px}
+.head h1{font-size:clamp(30px,5vw,44px)}
+.head p{margin:8px 0 0;max-width:68ch}
+.tools{background:rgba(23,27,33,.95);backdrop-filter:blur(8px);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:12px 0}
+@media (min-width:900px){.tools{position:sticky;top:0;z-index:5}}
+.tools .wrap{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.tools label.f{display:inline-flex;gap:8px;align-items:center;font-size:15px;color:var(--steel)}
+.tools .seg{display:flex;flex-wrap:wrap;gap:6px;border:0;overflow:visible}
+.tools .seg button{border:1px solid var(--rule);border-radius:var(--r-s);padding:7px 12px}
+.tools .seg button+button{border-left:1px solid var(--rule)}
+.tools .seg button[aria-pressed="true"]{border-color:var(--ember);box-shadow:none}
+#q{flex:1 1 240px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 14px}
+.chips label{display:inline-flex;gap:7px;align-items:center;font-size:15px;cursor:pointer}
+.chips input{accent-color:var(--ember);width:16px;height:16px}
+.now{font-size:15px;color:var(--steel)}
+.now b{color:var(--bright);font-weight:600}
+.week{padding:26px 0 8px;border-bottom:1px solid var(--rule);scroll-margin-top:16px}
+.week.current{background:linear-gradient(180deg,rgba(232,137,44,.07),transparent 160px)}
+.wh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:14px}
+.wh h2{font-size:26px}
+.wh .dates{font:600 16px var(--display);color:var(--bright)}
+.wh .day{font-size:14px;color:var(--steel)}
+.badge{font:600 12px/1 var(--display);letter-spacing:.04em;text-transform:uppercase;padding:5px 8px;border-radius:4px;background:var(--ember);color:#1b1206}
+.sub{font:600 13px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin:16px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{background:var(--plate);border:1px solid var(--rule);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card .pic{aspect-ratio:680/240;background:#1a1f26}
+.card .pic img{display:block;width:100%;height:100%;object-fit:cover}
+.card .pic.none{display:grid;place-items:center;font-size:13px;color:var(--steel)}
+.card .b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font:600 16px/1.25 var(--body)}
+.card .when{font-size:14px;color:var(--bright)}
+.card .feat{font-size:13px;color:var(--steel);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:6px}
+.tag{font-size:12px;border:1px solid var(--rule);border-radius:4px;padding:1px 7px;color:var(--steel)}
+.tag.w{border-color:#3d5a85;color:#a9c6ef}
+.tag.p{border-color:#7a3b55;color:#efaccb}
+.tag.n{border-color:#6b5a3a;color:#e5c387}
+.tag.h{border-color:#6b4a2a;color:#f0b37a}
+.tag.r{border-color:#5a3a6b;color:#d4a9ef}
+.hol{margin:4px 0 6px;padding:12px 14px;border:1px solid #6b4a2a;border-radius:var(--r-m);background:rgba(232,137,44,.06)}
+.hol>h3{font:600 17px var(--display);color:#f0b37a}
+.hol p{margin:4px 0 10px;font-size:14px;color:var(--steel)}
+.hol .grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+details.daily{margin:14px 0 4px}
+details.daily summary{cursor:pointer;font:600 13px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--steel)}
+.dl{display:grid;grid-template-columns:max-content minmax(0,1fr) minmax(0,1fr);gap:6px 12px;margin-top:10px;font-size:14px;align-items:center}
+.dl .h{color:var(--steel);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.dl .d{color:var(--steel);white-space:nowrap}
+.dl .s{display:flex;gap:8px;align-items:center;min-width:0}
+.dl .s img{width:96px;aspect-ratio:680/240;object-fit:cover;border-radius:3px;flex:none;background:#1a1f26}
+.dl .s span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dl .today{color:var(--ember);font-weight:600}
+@media (max-width:600px){.dl{grid-template-columns:max-content minmax(0,1fr)}.dl .free,.dl .h.free{display:none}.dl .s img{width:72px}}
+.empty{padding:40px 0;color:var(--steel)}
+.note{font-size:14px;color:var(--steel);padding:22px 0 60px;max-width:72ch}
+[hidden]{display:none!important}
+@media (min-width:900px){.week{scroll-margin-top:200px}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap"><a class="brand" href="../"><img src="../assets/icon-64.png" alt="">UB:FORGE</a>
+<nav><a href="../catalog/">Catalog</a><a href="./" aria-current="page">Calendar</a><a href="../codes/">Codes</a></nav></div></header>
+<main>
+  <div class="wrap head">
+    <h1>Calendar</h1>
+    <p class="muted">What each week of a Forge save brings: scouts, events, War of Underworld and holidays. Pick your pace and the day your save started to see real dates.</p>
+  </div>
+  <div class="tools">
+    <div class="wrap">
+      <div class="row">
+        <div class="seg" role="group" aria-label="Pace">
+          <button data-pace="default" aria-pressed="true">Default</button>
+          <button data-pace="fast" aria-pressed="false">Fast</button>
+          <button data-pace="daily" aria-pressed="false">Keep the Doctor Away</button>
+          <button data-pace="original" aria-pressed="false">Original</button>
+        </div>
+        <label class="f">Save started <input class="field" type="date" id="start"></label>
+        <button class="btn" id="today">Jump to this week</button>
+      </div>
+      <div class="row">
+        <input class="field" type="search" id="q" placeholder="Find a unit, scout or event" aria-label="Search">
+        <div class="chips" role="group" aria-label="Show">
+          <label><input type="checkbox" data-show="weapon" checked> Weapon scouts</label>
+          <label><input type="checkbox" data-show="pickup" checked> Pick-ups</label>
+          <label><input type="checkbox" data-show="events" checked> Events</label>
+          <label><input type="checkbox" data-show="wou" checked> War of Underworld</label>
+          <label><input type="checkbox" data-show="holiday" checked> Holidays</label>
+          <label><input type="checkbox" data-show="daily"> Daily scouts</label>
+        </div>
+      </div>
+      <p class="now" id="now"></p>
+    </div>
+  </div>
+  <div class="wrap" id="weeks"></div>
+  <div class="wrap"><p class="empty" id="empty" hidden>Nothing matches that search.</p>
+  <p class="note">Days start at 06:00 UTC, the same reset as the game. Holiday scouts, events and passes follow the real calendar every year, whatever week your save is on. War of Underworld runs a new volume every 14 days on every pace. Cathedral Assault, Equipment Creation, Challenge and Showdown volumes are shown in their debut week. The game also brings earlier volumes back in rotation.</p></div>
+</main>
+<script src="calendar.js"></script>
+</body>
+</html>
