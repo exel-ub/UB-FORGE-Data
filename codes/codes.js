@@ -29,6 +29,7 @@
     if (img) { const el = $('#picImg'); el.onload = () => $('#pic').classList.toggle('icon', el.naturalWidth / el.naturalHeight < 1.25); el.src = img; }
     $('#chosen').textContent = p ? p.label : 'Choose a reward';
     $('#chosenInfo').textContent = p ? isSong(p) ? `${songKind(p)} for the customization menu. Unlocks this song.` : (kindOf(p) === 'char' ? `Character ${p.rewards[0].id}. If you already own it, you get its duplicate conversion instead.` : (kindOf(p) === 'pack' || between(p, 2200, 2299)) ? `Contains ${contents(p)}. Arrives in the Gift Box.` : kindOf(p) === 'outfit' ? 'Home character outfit. Unlocks it for your home screen.' : kindOf(p) === 'bg' ? 'Home background. Unlocks it for your home screen.' : kindOf(p) === 'theme' ? `${themeKind(p)} for the customization menu. Unlocks it.` : 'Arrives in the Gift Box.') : '';
+    if (p && p.minimumVersion) $('#chosenInfo').textContent += ` Needs app ${p.minimumVersion} or later.`;
     $('#go').disabled = !(p && state.key);
   }
   $('#rewards').addEventListener('change', e => { state.chosen = +e.target.value; describe(); });
